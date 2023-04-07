@@ -390,6 +390,21 @@ install: $(APPNAME) check
 	@MSG=`$(GET_PLUGIN_PAGE_RESULT_STATUS)`; \
 	echo "Result: $$MSG"
 
+.PHONY: justrun
+justrun: $(APPNAME) check
+	@$(CHECK_ROKU_DEV_TARGET)
+
+	@echo "Installing $(APPNAME)..."
+	@HTTP_STATUS=`curl --user $(USERPASS) --digest --silent --show-error \
+		-F "mysubmit=Install" -F "archive=@$(APP_ZIP_FILE)" \
+		--output $(DEV_SERVER_TMP_FILE) \
+		--write-out "%{http_code}" \
+		http://$(ROKU_DEV_TARGET)/plugin_install`; \
+	$(CHECK_DEVICE_HTTP_STATUS)
+
+	@MSG=`$(GET_PLUGIN_PAGE_RESULT_STATUS)`; \
+	echo "Result: $$MSG"
+
 # -------------------------------------------------------------------------
 # remove: uninstall the dev channel from the Roku target device.
 # -------------------------------------------------------------------------

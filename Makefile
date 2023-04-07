@@ -20,4 +20,13 @@ VERSION = 1.0
 
 ZIP_EXCLUDE= -x \*.pkg -x storeassets\* -x keys\* -x \*/.\*
 
-include ./app.mk
+TOPTARGETS := all run
+
+SUBDIRS := complib app
+
+$(TOPTARGETS): $(SUBDIRS)
+$(SUBDIRS):
+	$(MAKE) -C $@ $(MAKECMDGOALS)
+
+.PHONY: $(TOPTARGETS) $(SUBDIRS)
+	

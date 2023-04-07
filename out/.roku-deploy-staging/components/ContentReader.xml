@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<component name="ContentReader" extends="Task">
-  <script type="text/brightscript" uri="ContentReader.brs" />
-
-  <interface>
-    <field id="content" type="Node"/>
-  </interface>
-</component>

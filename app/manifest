@@ -1,0 +1,11 @@
+title=Fubo Feed
+major_version=1
+minor_version=0
+build_version=0
+
+mm_icon_focus_hd=pkg:/images/me3.png
+
+# splash_screen_hd=pkg:/images/me3.png
+splash_screen_hd=pkg:/images/splash-screen_hd.png
+
+complib_url=http://192.168.0.241:8080/complib.zip

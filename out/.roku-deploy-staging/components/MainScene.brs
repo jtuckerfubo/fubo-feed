@@ -1,8 +1,8 @@
 sub init()
+    loadComplib()
     m.video = m.top.FindNode("videoPlayer")
     m.list = m.top.FindNode("list")
     m.list.ObserveField("itemSelected", "onItemSelected")
-    initializeList()
 end sub
   
 sub initializeList()
@@ -12,7 +12,7 @@ sub initializeList()
       m.dialog = m.progress
     end if
 
-    m.contentReader = CreateObject("roSGNode", "ContentReader")
+    m.contentReader = CreateObject("roSGNode", "CompLib:ContentReader")
     m.contentReader.ObserveField("content", "onContentChanged")
     m.contentReader.control = "RUN"
 end sub
@@ -48,4 +48,34 @@ function onKeyEvent(key as string, press as boolean) as boolean
     End If
 
     return handled
-  end function
+end function
+
+sub loadComplib()
+  componentLibrary = m.top.createChild("ComponentLibrary")
+  componentLibrary.observeFieldScoped("loadStatus", "onComponentLibraryLoadStatusChange")
+  'get the complib url from the manifest
+  componentLibrary.uri = createObject("roAppInfo").GetValue("complib_url")
+end sub
+
+' observe the ComponentLibrary's loadStatus
+sub onComponentLibraryLoadStatusChange(event as object)
+  status = event.getData()
+  component = event.getRoSgNode()
+  print "Complib loadStatus: ", status
+
+  'complib has started loading (but isn't ready yet)
+  if status = "loading" then return
+
+  if status = "ready" then
+      'Complib has loaded and is ready to use
+      initializeList()
+  else
+      'there was an error loading the complib
+      m.dialog = createObject("roSGNode", "Dialog")
+      'show a popup explaining that the complib failed to load
+      m.dialog.update({
+          title: "Error!",
+          message: "Failed to load component library"
+      })
+  end if
+end sub

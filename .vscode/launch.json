@@ -2,13 +2,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "BrightScript Debug: Launch",
+            "name": "BRS Debug: Launch",
             "type": "brightscript",
             "request": "launch",
+            "rootDir": "${workspaceFolder}/app",
+            "stopOnEntry": false,
+            "files": [
+                "**/*"
+            ],
+            "componentLibrariesPort": 8080,
+            "componentLibraries": [
+                {
+                    "rootDir": "${workspaceFolder}/complib/",
+                    "outFile": "complib.zip",
+                    "files": [
+                        "**/*"
+                    ]
+                }
+            ],
             "host": "192.168.0.32",
-            "password": "ahov",
-            "rootDir": "${workspaceFolder}",
-            "preLaunchTask": "build"
+            "password": "ahov"
         }
     ]
 }
