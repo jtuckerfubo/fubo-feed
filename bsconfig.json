@@ -6,6 +6,12 @@
         "manifest",
         "videos/**/*"
     ],
+    "files_sans_video": [
+        "source/**/*",
+        "components/**/*",
+        "images/**/*",
+        "manifest"
+    ],
     "rootDir": "source",
     "stagingDir": "dist",
     "retainStagingDir": true,
