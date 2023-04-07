@@ -1,4 +1,11 @@
 {
+    "files": [
+        "source/**/*",
+        "components/**/*",
+        "images/**/*",
+        "manifest",
+        "videos/**/*"
+    ],
     "rootDir": "source",
     "stagingDir": "dist",
     "retainStagingDir": true,
